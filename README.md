@@ -27,7 +27,7 @@
 
 Look at a diagram below:
 
-<img src="./docs/assets/freehand-diagrampng" alt="Mapi" title="Mapi" width="80%"/>
+<img src="./docs/assets/freehand-diagrampng.png" alt="Mapi" title="Mapi" width="80%"/>
 
 ## Features
 
