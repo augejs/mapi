@@ -3,6 +3,7 @@ import { Module, GetLogger, ILogger, boot } from '@augejs/module-core';
 import { WebServer } from '@augejs/koa';
 import { Typeorm } from '@augejs/typeorm';
 import { ScheduleManager } from '@augejs/schedule';
+import { AxiosConfig } from '@augejs/axios';
 
 @WebServer({
   port: 5001
@@ -19,6 +20,7 @@ import { ScheduleManager } from '@augejs/schedule';
   logging: false,
 })
 @ScheduleManager()
+@AxiosConfig()
 @Module()
 class AppModule {
 

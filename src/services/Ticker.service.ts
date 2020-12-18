@@ -5,7 +5,7 @@ import ms from 'ms';
 const DEFAULT_TICK_CRON = '*/4 * * * * *`';
 
 @Provider()
-export class EngineService {
+export class TickerService {
 
   @GetLogger()
   logger!: ILogger;
@@ -16,9 +16,6 @@ export class EngineService {
   @Schedule((scanNode: IScanNode) => (scanNode.getConfig('tickCronExpress') || DEFAULT_TICK_CRON))
   async tick() {
     this.logger.info('every20Sec tick');
-
     const tickTimeWindowSizeMS: number = ms(this.tickTimeWindowSize);
-
-
   }
 }

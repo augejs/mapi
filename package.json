@@ -32,11 +32,12 @@
   "homepage": "https://augejs.github.io/docs/",
   "dependencies": {
     "@augejs/amqp": "^1.0.1-rc.12",
+    "@augejs/axios": "^1.0.1-rc.10",
     "@augejs/i18n": "^1.0.1-rc.5",
     "@augejs/koa": "^1.0.1-rc.5",
     "@augejs/koa-bodyparser": "^1.0.0-rc.4",
     "@augejs/koa-static": "^1.0.0-rc.4",
-    "@augejs/module-core": "^1.0.1-rc.8",
+    "@augejs/module-core": "^1.0.1-rc.9",
     "@augejs/redis": "^1.0.1-rc.5",
     "@augejs/schedule": "^1.0.1-rc.7",
     "@augejs/typeorm": "^1.0.1-rc.14",

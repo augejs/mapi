@@ -1,9 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Index } from "@augejs/typeorm";
-import { JobExecuteStatusEnum, JobScheduleTypeEnum } from '../enums';
+import { TaskStatus } from '../enums';
+import { TaskSchema } from '../types';
 
 @Entity()
 @Index(['status', 'scheduleStatus'])
-export class JobExecuteRecord {
+export class TaskEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -30,26 +31,8 @@ export class JobExecuteRecord {
   })
   desc: string = '';
 
-  @Column("boolean")
-  scheduleRepeated: boolean = false
-
-  @Column('enum', {
-    enum: JobScheduleTypeEnum,
-    default: JobScheduleTypeEnum.BASIC,
-  })
-  scheduleType: JobScheduleTypeEnum = JobScheduleTypeEnum.BASIC;
-
   @Column('json')
-  scheduleParams: any = {};
-
-  @Column('int')
-  scheduleCurStep: number = 0;
-
-  @Column('int')
-  scheduleTotalStep: number = 0;
-
-  @Column('timestamp')
-  executeTimeStamp!: Date;
+  taskSchema!: TaskSchema;
 
   @Column({
     length: 32,
@@ -59,15 +42,15 @@ export class JobExecuteRecord {
   PFP!: string;
 
   @Column('enum', {
-    enum: JobExecuteStatusEnum,
-    default: JobExecuteStatusEnum.PENDING,
+    enum: TaskStatus,
+    default: TaskStatus.PENDING,
   })
-  executeStatus: JobExecuteStatusEnum = JobExecuteStatusEnum.PENDING;
+  status: TaskStatus = TaskStatus.PENDING;
 
   @Column('json', {
     comment: `execute result json`
   })
-  executeResult: any = {};
+  result: any = {};
 
   @CreateDateColumn()
   createAt!: Date;

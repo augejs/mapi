@@ -1,9 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Index } from "@augejs/typeorm";
-import { JobStatusEnum, JobScheduleTypeEnum, JobScheduleStatusEnum } from '../enums';
+import { JobStatusEnum, JobRunningStatus } from '../enums';
+import { JobSchema } from '../types';
 
-@Entity()
+@Entity({
+  name: 'job'
+})
 @Index(['status', 'scheduleStatus'])
-export class Job {
+export class JobEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -37,26 +40,36 @@ export class Job {
   desc: string = '';
 
   @Column('enum', {
-    enum: JobScheduleStatusEnum,
-    default: JobScheduleStatusEnum.WAITING,
+    enum: JobRunningStatus,
+    default: JobRunningStatus.WAITING,
   })
-  executeStatus: JobScheduleStatusEnum = JobScheduleStatusEnum.WAITING;
+  runningStatus: JobRunningStatus = JobRunningStatus.WAITING;
+
+  @Column('int')
+  delay: number = 0;
+
+  @Column('bool')
+  repeatable: boolean = false;
 
   @Column('json')
-  scheduleSchema: any = {};
+  jobSchema!: JobSchema;
+
+  @Column('int', {
+    nullable: false,
+    default: 0,
+  })
+  curStep: number = 0;
 
   @Column('int')
-  scheduleCurStep: number = 0;
-
-  @Column('int')
-  scheduleTotalStep: number = 0;
+  totalStep: number = 0;
 
   @Column('timestamp')
-  executeTimeStamp!: Date;
+  nextTaskTime!: Date;
 
   @Column({
     length: 32,
     nullable: false,
+    default: '',
     comment: `processor fingerprint default equals to env.ProcessorFingerprint or equals ip + port`
   })
   PFP!: string;
